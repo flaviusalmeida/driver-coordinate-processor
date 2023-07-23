@@ -1,6 +1,6 @@
 package br.com.drivercoordinate.processor.consumer;
 
-import br.com.drivercoordinate.processor.dto.MessageTestDTO;
+import br.com.drivercoordinate.processor.dto.DriverInfoDto;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
@@ -8,10 +8,8 @@ import org.springframework.stereotype.Component;
 public class EventConsumer {
 
     @RabbitListener(queues = {"${events.queue}"})
-    public void receive(MessageTestDTO message) {
-        message.setMessage(null);
-        message.getMessage().toLowerCase();
-        System.out.println("Message: " + message);
+    public void receive(DriverInfoDto message) {
+         System.out.println("Message: " + message);
     }
 
 }
