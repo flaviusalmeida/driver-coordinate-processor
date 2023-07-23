@@ -17,8 +17,14 @@ public class ReceiverConfig {
     @Value("${events.queue}")
     private String eventsQueueName;
 
+    @Value("${events.dlq}")
+    private String eventsDlqName;
+
     @Value("${events.ex}")
     private String eventsExName;
+
+    @Value("${events.dlx}")
+    private String eventsDlxName;
 
     @Bean
     public RabbitAdmin createRabbitAdmin(ConnectionFactory conn) {
@@ -44,7 +50,14 @@ public class ReceiverConfig {
 
     @Bean
     public Queue eventsQueue() {
-        return QueueBuilder.durable(eventsQueueName).build();
+        return QueueBuilder.durable(eventsQueueName)
+                .deadLetterExchange(eventsDlxName)
+                .build();
+    }
+
+    @Bean
+    public Queue eventsDlq() {
+        return QueueBuilder.durable(eventsDlqName).build();
     }
 
     @Bean
@@ -53,8 +66,18 @@ public class ReceiverConfig {
     }
 
     @Bean
-    public Binding bindEvents(FanoutExchange eventsExchange) {
-        return BindingBuilder.bind(eventsQueue()).to(eventsExchange);
+    FanoutExchange deadLetterExchange() {
+        return ExchangeBuilder.fanoutExchange(eventsDlxName).build();
+    }
+
+    @Bean
+    public Binding bindEvents() {
+        return BindingBuilder.bind(eventsQueue()).to(eventsExchange());
+    }
+
+    @Bean
+    public Binding bindDlxEvents() {
+        return BindingBuilder.bind(eventsDlq()).to(deadLetterExchange());
     }
 
 }

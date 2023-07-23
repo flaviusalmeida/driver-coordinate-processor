@@ -9,7 +9,9 @@ public class EventConsumer {
 
     @RabbitListener(queues = {"${events.queue}"})
     public void receive(MessageTestDTO message) {
-        System.out.println("Message: " +  message);
+        message.setMessage(null);
+        message.getMessage().toLowerCase();
+        System.out.println("Message: " + message);
     }
 
 }
