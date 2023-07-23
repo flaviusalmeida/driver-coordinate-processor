@@ -1,15 +1,17 @@
 package br.com.drivercoordinate.processor.consumer;
 
+import br.com.drivercoordinate.processor.dto.MessageTestDTO;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 @Component
 public class EventConsumer {
 
-    @RabbitListener(queues = {"${queue.name}"})
-    public void receive(@Payload String fileBody) {
-        System.out.println("Message: " + fileBody);
+    @RabbitListener(queues = {"${events.queue}"})
+    public void receive(MessageTestDTO message) {
+        message.setMessage(null);
+        message.getMessage().toLowerCase();
+        System.out.println("Message: " + message);
     }
 
 }
