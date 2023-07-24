@@ -4,6 +4,8 @@ import br.com.drivercoordinate.processor.model.Event;
 import br.com.drivercoordinate.processor.repository.EventRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EventService {
 
@@ -15,5 +17,9 @@ public class EventService {
 
     public void save(Event event) {
         repository.save(event);
+    }
+
+    public List<Event> findOpenedEventsByVehicle(Event event) {
+        return repository.findOpenedEventsByVehicle(event.getVehiclePlate());
     }
 }
