@@ -1,7 +1,6 @@
 package br.com.drivercoordinate.processor.repository;
 
 import br.com.drivercoordinate.processor.model.Event;
-import br.com.drivercoordinate.processor.model.EventType;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 

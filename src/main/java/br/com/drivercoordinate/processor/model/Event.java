@@ -9,7 +9,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @ToString
-public class Event implements Cloneable {
+public class Event {
     @Id
     private String id;
     private String vehiclePlate;
