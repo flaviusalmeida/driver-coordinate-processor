@@ -4,11 +4,14 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import lombok.*;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
+@Document
 public class Event {
     @Id
     private String id;
@@ -19,13 +22,8 @@ public class Event {
     private long longitude;
     private EventType eventType;
     private double speed;
-
-    @Override
-    public Event clone() {
-        try {
-            return (Event) super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    @DocumentReference
+    private Coordinate openedCoordinateId;
+    @DocumentReference
+    private Coordinate closedCoordinateId;
 }

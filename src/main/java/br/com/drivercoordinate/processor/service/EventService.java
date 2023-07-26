@@ -1,6 +1,7 @@
 package br.com.drivercoordinate.processor.service;
 
 import br.com.drivercoordinate.processor.dto.DriverInfoDto;
+import br.com.drivercoordinate.processor.model.Coordinate;
 import br.com.drivercoordinate.processor.model.Event;
 import br.com.drivercoordinate.processor.model.EventType;
 import br.com.drivercoordinate.processor.repository.EventRepository;
@@ -17,11 +18,13 @@ import java.util.stream.Stream;
 public class EventService {
 
     private final EventRepository repository;
+    private final CoordinateService coordinateService;
 
     private final ModelMapper mapper;
 
-    public EventService(EventRepository repository, ModelMapper mapper) {
+    public EventService(EventRepository repository, CoordinateService coordinateService, ModelMapper mapper) {
         this.repository = repository;
+        this.coordinateService = coordinateService;
         this.mapper = mapper;
     }
 
@@ -48,6 +51,8 @@ public class EventService {
         }
         if (event != null && !condition) {
             event.setClosedDate(LocalDateTime.now().toString());
+            Coordinate coordinate = coordinateService.save(new Coordinate(event.getLatitude(), event.getLongitude()));
+            event.setClosedCoordinateId(coordinate);
             save(event);
         }
     }
@@ -77,7 +82,10 @@ public class EventService {
 
         Event event = mapper.map(driverInfo, Event.class);
         event.setEventType(eventType);
+        // TODO Verify ISO and UTC
         event.setOpenedDate(LocalDateTime.now().toString());
+        Coordinate coordinate = coordinateService.save(new Coordinate(event.getLatitude(), event.getLongitude()));
+        event.setOpenedCoordinateId(coordinate);
         save(event);
     }
 }
