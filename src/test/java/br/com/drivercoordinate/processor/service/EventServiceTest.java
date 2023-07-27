@@ -13,6 +13,7 @@ import org.mockito.Spy;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.lang.model.element.TypeElement;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -108,11 +109,12 @@ public class EventServiceTest {
     @Test
     public void shouldCloseEvent() {
         driverInfo.setVehiclePlate(VEHICLE_PLATE);
-        driverInfo.setSpeed(HIGH_SPEED);
+        driverInfo.setSpeed(SPEED);
         driverInfo.setTransmissionReasonId(SPEEDING.getTransmissionReasonId());
 
         event.setOpenedDate(LocalDateTime.now().toString());
         event.setVehiclePlate(VEHICLE_PLATE);
+        event.setEventType(SPEEDING);
         event.setSpeed(SPEED);
 
         List<Event> events = new ArrayList<>();
