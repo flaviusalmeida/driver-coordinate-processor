@@ -17,7 +17,6 @@ public class EventReceiver {
 
     @RabbitListener(queues = {"${events.queue}"})
     public void receive(DriverInfoDto driverInfo) {
-        System.out.println("Message: " + driverInfo.getVehiclePlate());
         service.processEvents(driverInfo);
     }
 

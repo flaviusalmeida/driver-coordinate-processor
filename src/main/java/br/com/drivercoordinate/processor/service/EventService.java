@@ -82,7 +82,6 @@ public class EventService {
 
         Event event = mapper.map(driverInfo, Event.class);
         event.setEventType(eventType);
-        // TODO Verify ISO and UTC
         event.setOpenedDate(LocalDateTime.now().toString());
         Coordinate coordinate = coordinateService.save(new Coordinate(event.getLatitude(), event.getLongitude()));
         event.setOpenedCoordinateId(coordinate);

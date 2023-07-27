@@ -1,12 +1,16 @@
 package br.com.drivercoordinate.processor.dto;
 
+import static br.com.drivercoordinate.processor.model.EventType.HARD_ACCELERATION;
+import static br.com.drivercoordinate.processor.model.EventType.HARD_BRAKING;
+import static br.com.drivercoordinate.processor.model.EventType.HARD_TURNING;
+
+import br.com.drivercoordinate.processor.model.EventType;
 import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class DriverInfoDto {
     private String vehiclePlate;
     private String coordinateDate;
@@ -23,15 +27,15 @@ public class DriverInfoDto {
     private int transmissionReasonId;
 
     public boolean isHardAcceleration() {
-        return transmissionReasonId == 104 && acceleration > 0.22;
+        return transmissionReasonId == HARD_ACCELERATION.getTransmissionReasonId() && acceleration > 0.22;
     }
 
     public boolean isHardBraking() {
-        return transmissionReasonId == 105 && acceleration > 0.17;
+        return transmissionReasonId == HARD_BRAKING.getTransmissionReasonId() && acceleration > 0.17;
     }
 
     public boolean isHardTurning() {
-        return transmissionReasonId == 106 && acceleration > 0.30;
+        return transmissionReasonId == HARD_TURNING.getTransmissionReasonId() && acceleration > 0.30;
     }
 
     public boolean isSpeeding() {
