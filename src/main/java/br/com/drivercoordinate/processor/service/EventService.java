@@ -57,7 +57,7 @@ public class EventService {
         }
     }
 
-    private Event findEventByEventType(List<Event> events, EventType eventType) {
+    public Event findEventByEventType(List<Event> events, EventType eventType) {
         Optional<Event> event = events.stream()
                 .filter(e -> e.getEventType() == eventType)
                 .findFirst();
@@ -67,7 +67,7 @@ public class EventService {
         return null;
     }
 
-    private boolean getConditionByEventType(DriverInfoDto driverInfo, EventType eventType) {
+    public boolean getConditionByEventType(DriverInfoDto driverInfo, EventType eventType) {
         return switch (eventType) {
             case HARD_ACCELERATION -> driverInfo.isHardAcceleration();
             case HARD_BRAKING -> driverInfo.isHardBraking();
