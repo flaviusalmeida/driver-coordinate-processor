@@ -1,6 +1,6 @@
 # Diver Coordinate
 
-Real-time data processing application, using the concept of messaging, for data processing.
+Real-time data processing application, using the concept of message broker, for data processing.
 
 ## 🚀 Getting started
 
