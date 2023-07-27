@@ -28,7 +28,7 @@ public class EventService {
         this.mapper = mapper;
     }
 
-    public void save(Event event) {
+    private void save(Event event) {
         repository.save(event);
     }
 
